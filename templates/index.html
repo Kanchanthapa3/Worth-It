@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Worth It? | Smart Buying Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <div class="brand">
+                <div class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        viewBox = "0 0 24 24" 
+                         fill = "none"
+                         stroke = "currentColor"
+                         stroke-width="1.7"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                         <path d="M5 8h14l1 13H4L5 8Z"/>
+                         <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+                         <path d="m9 14 2 2 4-4"/>
+
+                    </svg>
+                
+                </div>
+                <h1>Worth It<span>?</span></h1>
+            </div>
+
+            <p class="subtitle">
+                Pause. Think. Then spend.
+            </p>
+
+            <p class="description">
+                A little tool to help you make smarter buying decisions
+            </p>
+        </header>
+
+        <form method="POST">
+
+            <h2>Product Details</h2>
+
+            <label>Product Name:</label>
+            <input type="text" name="product" placeholder="e.g. Headphones" required>
+
+            <label>Price (Rs.):</label>
+            <input type="number" name="price" min="0.01" step="0.01" required>
+
+            <label>Monthly Income (Rs.):</label>
+            <input type="number" name="income" min="0.01" step="0.01" required>
+
+            <label>How badly do you need it?</label>
+            <select name="need" required>
+                <option value="1">Not really</option>
+                <option value="2">A little</option>
+                <option value="3">Somewhat</option>
+                <option value="4">Very much</option>
+                <option value="5">I really need it</option>
+            </select>
+
+            <label>Do you already own something similar?</label>
+            <select name="existing" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+
+            <label>How badly do you want it?</label>
+            <select name="want" required>
+                <option value="1">Not much</option>
+                <option value="2">A little</option>
+                <option value="3">Somewhat</option>
+                <option value="4">A lot</option>
+                <option value="5">I really want it</option>
+            </select>
+
+            <button type="submit">Calculate My Buy Score</button>
+
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if buy_score is not none %}
+
+            <div class="result {{ result_class }}">
+
+                <h2>{{ product }}</h2>
+
+                <p>Price: Rs. {{ price }}</p>
+                <p>Monthly Income: Rs. {{ income }}</p>
+
+                <h3>Score Breakdown</h3>
+
+                <!-- Keep your four existing score bars here -->
+
+                <h2>Your Buy Score: {{ buy_score }}/100</h2>
+
+                <h2>{{ recommendation }}</h2>
+
+                <p>{{ explanation }}</p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
